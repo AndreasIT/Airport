@@ -56,5 +56,19 @@ namespace Airport.Controllers
             { aircraftType = flightItem.AircraftType, fromLocation = flightItem.FromLocation, toLocation = flightItem.ToLocation,
                 departureTime = flightItem.DepartureTime, arrivalTime = flightItem.ArrivalTime }, flightItem);
         }
+//put
+        [HttpPut("{FlightId}")]
+        public async Task<IActionResult> PutFlightItem(int FlightId, FlightItems flightItem)
+        {
+            if (FlightId != flightItem.FlightId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(flightItem).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
