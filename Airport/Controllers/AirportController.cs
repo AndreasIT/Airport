@@ -45,7 +45,20 @@ namespace Airport.Controllers
 
             return FlightItem;
         }
-//post
+//Get with location
+        [HttpGet("location/{FlightId}")]
+        public async Task<ActionResult<FlightItems>> GetFlightItemWL(string FromLocation, string ToLocation)
+        {
+            var FlightItem = await _context.flightItems.FindAsync(FromLocation, ToLocation);
+
+            if (FlightItem == null)
+            {
+                return NotFound();
+            }
+
+            return FlightItem;
+        }
+//Post
         [HttpPost]
         public async Task<ActionResult<FlightItems>> PostFlightItem(FlightItems flightItem)
         {
