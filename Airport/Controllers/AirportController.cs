@@ -45,5 +45,16 @@ namespace Airport.Controllers
 
             return FlightItem;
         }
+//post
+        [HttpPost]
+        public async Task<ActionResult<FlightItems>> PostFlightItem(FlightItems flightItem)
+        {
+            _context.flightItems.Add(flightItem);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetFlightItem", new
+            { aircraftType = flightItem.AircraftType, fromLocation = flightItem.FromLocation, toLocation = flightItem.ToLocation,
+                departureTime = flightItem.DepartureTime, arrivalTime = flightItem.ArrivalTime }, flightItem);
+        }
     }
 }
